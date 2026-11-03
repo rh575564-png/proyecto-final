@@ -34,8 +34,12 @@ const bancosPreguntas = {
     ]
 };
 
+// Variable global de respaldo para asegurar el curso seleccionado
+let cursoSeleccionadoGlobal = "Desarrollo Web Moderno";
+
 // --- FUNCIONALIDAD DE REGISTRO (index.html) ---
 function seleccionarCurso(nombreCurso) {
+    cursoSeleccionadoGlobal = nombreCurso;
     document.getElementById('welcome-section').style.display = 'none';
     document.getElementById('register-section').style.display = 'block';
     
@@ -55,7 +59,9 @@ function registrarEstudiante(event) {
     
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
-    const curso = document.getElementById('curso-sel').value;
+    
+    const selectCurso = document.getElementById('curso-sel');
+    const curso = selectCurso ? selectCurso.value : cursoSeleccionadoGlobal;
 
     const estudiante = {
         nombre: nombre,
@@ -78,7 +84,7 @@ function registrarEstudiante(event) {
 // --- CARGAR PREGUNTAS DINÁMICAS (evaluacion.html) ---
 function cargarPreguntasCurso() {
     const estudiante = JSON.parse(localStorage.getItem('estudianteActual'));
-    const cursoActual = estudiante ? estudiante.curso : "Desarrollo Web Moderno";
+    const cursoActual = estudiante ? estudiante.curso : cursoSeleccionadoGlobal;
     
     const tituloElem = document.getElementById('titulo-evaluacion');
     if(tituloElem) {
@@ -122,7 +128,7 @@ function cargarPreguntasCurso() {
 function calcularEvaluacionDinamica(event) {
     event.preventDefault();
     const estudiante = JSON.parse(localStorage.getItem('estudianteActual'));
-    const cursoActual = estudiante ? estudiante.curso : "Desarrollo Web Moderno";
+    const cursoActual = estudiante ? estudiante.curso : cursoSeleccionadoGlobal;
     const preguntas = bancosPreguntas[cursoActual];
 
     let aciertos = 0;
@@ -161,6 +167,7 @@ function calcularEvaluacionDinamica(event) {
 
     window.location.href = 'resultado.html';
 }
+
 // --- MOSTRAR RESULTADOS Y DIPLOMA (resultado.html) ---
 function mostrarResultadosFinales() {
     const estudiante = JSON.parse(localStorage.getItem('estudianteActual'));
@@ -183,7 +190,7 @@ function mostrarResultadosFinales() {
             const nomDiploma = document.getElementById('nombre-estudiante-diploma');
             if(nomDiploma) nomDiploma.innerText = estudiante.nombre;
 
-            // Actualiza el nombre del curso dinámicamente en el diploma
+            // Actualiza dinámicamente el nombre correcto del curso en el diploma
             const cursoDiploma = document.getElementById('curso-estudiante-diploma');
             if(cursoDiploma) {
                 cursoDiploma.innerText = estudiante.curso;
