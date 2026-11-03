@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aula Virtual - Academia Global</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1 id="titulo-aula">Aula Virtual</h1>
+        <p id="saludo-estudiante">Cargando datos del estudiante...</p>
+    </header>
+
+    <div class="container">
+        <h2 id="modulo-titulo">Módulo 1: Fundamentos</h2>
+        <div id="contenido-curso">
+            <!-- El contenido dinámico se cargará aquí -->
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Recurso Audiovisual de Apoyo</h3>
+        <!-- Botón directo a YouTube para evitar el bloqueo local de los iframes -->
+        <div style="margin: 1.5rem 0; text-align: center; background: #f1f5f9; padding: 2rem; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <p style="margin-bottom: 1rem; font-weight: 600; color: #1e293b;">Haz clic en el siguiente botón para reproducir la video-lección oficial:</p>
+            <a id="btn-video" href="#" target="_blank" class="btn" style="background-color: #ef4444; text-decoration: none; display: inline-block; padding: 0.75rem 1.5rem; color: white; border-radius: 6px; font-weight: bold;">Ver Video en YouTube 📺</a>
+        </div>
+
+        <!-- Enlace de apoyo oficial -->
+        <p style="margin-top: 1.5rem;">Para profundizar más en tu formación profesional, puedes consultar la documentación y guías oficiales en <a id="enlace-curso" href="#" target="_blank" style="color: var(--primary-light);">Enlace de Referencia</a>.</p>
+
+        <div style="margin-top: 2rem; text-align: right;">
+            <a href="evaluacion.html" class="btn btn-success">Ir a la Evaluación del Curso ➔</a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Enlaces directos normales de YouTube para cada curso
+        const infoCursos = {
+            "Desarrollo Web Moderno": {
+                tituloHeader: "Aula Virtual: Desarrollo Web Moderno",
+                modulo: "Módulo 1: Fundamentos de HTML, CSS y JavaScript",
+                texto: `El desarrollo web se sustenta en tres tecnologías principales que trabajan en conjunto:
+                        <ul style="margin: 1rem 0 1.5rem 1.5rem;">
+                            <li><strong>HTML:</strong> Estructura y contenido de la página web.</li>
+                            <li><strong>CSS:</strong> Diseño, colores y adaptabilidad visual (Responsive Design).</li>
+                            <li><strong>JavaScript:</strong> Interactividad, lógica de negocio y validación de datos.</li>
+                        </ul>`,
+                videoLink: "https://www.youtube.com/watch?v=rbuYtrNUxg4", 
+                linkRef: "https://developer.mozilla.org/es/",
+                textoRef: "Documentación oficial en MDN Web Docs"
+            },
+            "Python para Principiantes": {
+                tituloHeader: "Aula Virtual: Python para Principiantes",
+                modulo: "Módulo 1: Introducción a la Sintaxis y Lógica en Python",
+                texto: `Python es un lenguaje de programación de alto nivel, interpretado y multiparadigma:
+                        <ul style="margin: 1rem 0 1.5rem 1.5rem;">
+                            <li><strong>Sintaxis Limpia:</strong> Su estructura facilita la lectura y el aprendizaje rápido.</li>
+                            <li><strong>Tipos de Datos:</strong> Manejo de enteros, cadenas de texto, listas y diccionarios.</li>
+                            <li><strong>Automatización:</strong> Ideal para ciencia de datos, desarrollo backend y scripts.</li>
+                        </ul>`,
+                videoLink: "https://youtu.be/nKPbfIU442g?si=dqE26WTOoKG92HLa", 
+                linkRef: "https://docs.python.org/es/3/",
+                textoRef: "Documentación Oficial de Python"
+            },
+            "Bases de Datos SQL": {
+                tituloHeader: "Aula Virtual: Bases de Datos SQL",
+                modulo: "Módulo 1: Gestión de Tablas y Consultas Relacionales",
+                texto: `Las bases de datos relacionales permiten almacenar y organizar grandes volúmenes de información:
+                        <ul style="margin: 1rem 0 1.5rem 1.5rem;">
+                            <li><strong>SELECT:</strong> Consultas eficientes para extraer registros específicos.</li>
+                            <li><strong>INSERT / UPDATE:</strong> Inserción y actualización de datos en las tablas.</li>
+                            <li><strong>Relaciones:</strong> Conexión entre tablas mediante llaves primarias y foráneas.</li>
+                        </ul>`,
+                videoLink: "https://youtu.be/OuJerKzV5T0?si=9ZgRI25VYM4Q4i3p", 
+                linkRef: "https://es.wikipedia.org/wiki/SQL",
+                textoRef: "Artículo conceptual y guía de SQL"
+            },
+            "Diseño UX/UI Esencial": {
+                tituloHeader: "Aula Virtual: Diseño UX/UI Esencial",
+                modulo: "Módulo 1: Experiencia de Usuario e Interfaz Visual",
+                texto: `El diseño centrado en el usuario garantiza productos digitales intuitivos y atractivos:
+                        <ul style="margin: 1rem 0 1.5rem 1.5rem;">
+                            <li><strong>UX (User Experience):</strong> Investigación, flujos de usuario y usabilidad.</li>
+                            <li><strong>UI (User Interface):</strong> Diseño visual, tipografías, colores y componentes.</li>
+                            <li><strong>Prototipado:</strong> Creación de wireframes interactivos antes de programar.</li>
+                        </ul>`,
+                videoLink: "https://youtu.be/4WluMTM2oss?si=5RyDiPn40Vyqke1x", 
+                linkRef: "https://asana.com/es/resources/what-is-ux-design",
+                textoRef: "Guía informativa sobre Diseño UX"
+            }
+        };
+
+        window.onload = function() {
+            const estudiante = JSON.parse(localStorage.getItem('estudianteActual'));
+            if (estudiante) {
+                document.getElementById('saludo-estudiante').innerText = `Estudiante: ${estudiante.nombre} | Curso: ${estudiante.curso}`;
+                
+                const datos = infoCursos[estudiante.curso] || infoCursos["Desarrollo Web Moderno"];
+                document.getElementById('titulo-aula').innerText = datos.tituloHeader;
+                document.getElementById('modulo-titulo').innerText = datos.modulo;
+                document.getElementById('contenido-curso').innerHTML = datos.texto;
+                
+                // Asignar el enlace limpio al botón
+                document.getElementById('btn-video').href = datos.videoLink;
+                
+                const enlaceElem = document.getElementById('enlace-curso');
+                enlaceElem.href = datos.linkRef;
+                enlaceElem.innerText = datos.textoRef;
+            } else {
+                document.getElementById('saludo-estudiante').innerText = "No hay sesión de estudiante activa.";
+            }
+        }
+    </script>
+</body>
+</html>

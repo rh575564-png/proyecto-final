@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado y Diploma</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Resultado de la Evaluación</h1>
+        <p>¡Gracias por completar el curso en línea!</p>
+    </header>
+
+    <div class="container" style="text-align: center;">
+        <div id="resultado-container" style="margin-bottom: 2rem;">
+            <h2 id="texto-calificacion">Calificación: 0 / 100</h2>
+            <p id="mensaje-estado" style="font-size: 1.2rem; font-weight: 600; margin: 1rem 0;"></p>
+        </div>
+
+        <!-- Diploma -->
+        <div id="diploma-seccion" style="display: none;">
+            <div class="diploma-box">
+                <h1>DIPLOMA DE APROBACIÓN</h1>
+                <p>Se otorga el presente reconocimiento a:</p>
+                <h2 id="nombre-estudiante-diploma" style="border: none; font-size: 2rem; margin: 1rem 0; color: #1e3a8a;">[Nombre del Estudiante]</h2>
+                <p>Por haber completado y aprobado satisfactoriamente el curso en línea:</p>
+                <p style="font-weight: bold; font-size: 1.2rem; margin: 0.5rem 0;">Desarrollo Web Moderno (HTML5, CSS3 y JS)</p>
+                <p style="margin-top: 3rem; font-size: 0.9rem; color: #64748b;">Academia Global Online - Validado con éxito</p>
+            </div>
+            <br>
+            <button onclick="window.print()" class="btn">Imprimir / Guardar Diploma (PDF)</button>
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <a href="index.html" class="btn" style="background-color: #64748b;">Volver al Inicio</a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        window.onload = function() {
+            mostrarResultadosFinales();
+        }
+    </script>
+</body>
+</html>
