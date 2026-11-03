@@ -161,7 +161,6 @@ function calcularEvaluacionDinamica(event) {
 
     window.location.href = 'resultado.html';
 }
-
 // --- MOSTRAR RESULTADOS Y DIPLOMA (resultado.html) ---
 function mostrarResultadosFinales() {
     const estudiante = JSON.parse(localStorage.getItem('estudianteActual'));
@@ -177,10 +176,18 @@ function mostrarResultadosFinales() {
         if (estudiante.calificacion >= 60) {
             mensajeEstado.innerText = "¡Felicitaciones! Has aprobado el curso exitosamente.";
             mensajeEstado.style.color = "#10b981";
+            
             const diplomaSec = document.getElementById('diploma-seccion');
             if(diplomaSec) diplomaSec.style.display = 'block';
+            
             const nomDiploma = document.getElementById('nombre-estudiante-diploma');
             if(nomDiploma) nomDiploma.innerText = estudiante.nombre;
+
+            // Actualiza el nombre del curso dinámicamente en el diploma
+            const cursoDiploma = document.getElementById('curso-estudiante-diploma');
+            if(cursoDiploma) {
+                cursoDiploma.innerText = estudiante.curso;
+            }
         } else {
             mensajeEstado.innerText = "No has alcanzado el puntaje mínimo de aprobación (60 pts). Inténtalo de nuevo.";
             mensajeEstado.style.color = "#ef4444";
